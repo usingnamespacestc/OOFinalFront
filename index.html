@@ -1,20 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css">
-  <link rel="stylesheet" href="index.css">
-  <title>COVID-dashboard</title>
-  <!--
-    author: usingnamespacestc@gmail.com
-  -->
-</head>
-<body>
-    <div id="app">
-        
-    </div>
-</body>
-<script src="https://unpkg.com/vue@2.6.14/dist/vue.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.7/index.js" type="text/javascript" charset="utf-8"></script>
-<script src="index.js" type="text/javascript" charset="utf-8"></script>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css">
+    <link rel="stylesheet" href="index.css">
+    <title>My COVID Dashboard</title>
+    <!--
+      author: usingnamespacestc@gmail.com
+    -->
+  </head>
+  <body>
+      <div id="app" class="app">
+
+        <div class="login" v-if="currentPage=='login'">
+          <el-row type="flex">
+            <el-col>
+              <el-card class="box-card" shadow="hover">
+                <div slot="header" class="clearfix">
+                  <span>My COVID Dashboard</span>
+                </div>
+                <el-row type="flex" class="input-row">
+                  <el-col>
+                    <el-input placeholder="Username" v-model="username"></el-input>
+                  </el-col>
+                </el-row>
+                <el-row type="flex" class="input-row">
+                  <el-col>
+                    <el-input placeholder="Password" v-model="password" show-password></el-input>
+                  </el-col>
+                </el-row>
+                <el-row type="flex" class="input-row">
+                  <el-col>
+                    <el-button type="primary" @click="switchToDashboard">Login</el-button>
+                  </el-col>
+                </el-row>
+                <span>Don't have an account?</span>
+                <el-button type="text" @click="switchToSignup">Sign Up</el-button>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div>
+
+        <div class="signup" v-if="currentPage=='signup'">
+          <el-row type="flex">
+            <el-col>
+              <el-card class="box-card" shadow="hover">
+                <div slot="header" class="clearfix">
+                  <span>My COVID Dashboard</span>
+                </div>
+                <el-row type="flex" class="input-row">
+                  <el-col>
+                    <el-input placeholder="Username" v-model="username"></el-input>
+                  </el-col>
+                </el-row>
+                <el-row type="flex" class="input-row">
+                  <el-col>
+                    <el-input placeholder="Password" v-model="password" show-password></el-input>
+                  </el-col>
+                </el-row>
+                <el-row type="flex" class="input-row">
+                  <el-col>
+                    <el-button type="primary" @click="switchToDashboard">Sign Up & Login</el-button>
+                  </el-col>
+                </el-row>
+                <span>Already have an account?</span>
+                <el-button type="text" @click="switchToLogin">Login</el-button>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div>
+
+        <div class="dashboard" v-if="currentPage=='dashboard'">
+          <el-row type="flex">
+            <el-col>
+              <el-card class="box-card" shadow="hover">
+                <div slot="header" class="clearfix">
+                  <span>My COVID Dashboard</span>
+                  <el-button style="float: right; padding: 3px 0" type="text" @click="switchToLogin">Log out</el-button>
+                </div>
+                <el-row type="flex">
+                  <h2>Hello, {{username}}!</h2>
+                </el-row>
+                <el-row type="flex">
+                  <el-col>
+                    <span>placeholder</span>
+                  </el-col>
+                </el-row>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+  </body>
+  <script src="https://unpkg.com/vue@2.6.14/dist/vue.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.7/index.js" type="text/javascript" charset="utf-8"></script>
+  <script src="index.js" type="text/javascript" charset="utf-8"></script>
 </html>
