@@ -11,7 +11,6 @@
   </head>
   <body>
       <div id="app" class="app">
-
         <div class="login" v-if="currentPage=='login'">
           <el-row type="flex">
             <el-col>
@@ -46,7 +45,7 @@
             <el-col>
               <el-card class="box-card" shadow="hover">
                 <div slot="header" class="clearfix">
-                  <span>My COVID Dashboard</span>
+                  <span>My COVID Dashboard by usingnamespacestc@gmail.com</span>
                 </div>
                 <el-row type="flex" class="input-row">
                   <el-col>
@@ -78,14 +77,174 @@
                   <span>My COVID Dashboard</span>
                   <el-button style="float: right; padding: 3px 0" type="text" @click="switchToLogin">Log out</el-button>
                 </div>
-                <el-row type="flex">
+                <el-row class="hello" type="flex">
                   <h2>Hello, {{username}}!</h2>
                 </el-row>
-                <el-row type="flex">
+                <el-row class="content" type="flex">
+                  <el-col>
+                    <el-card class="risk-calculator" shadow="hover">
+                      <div slot="header" class="clearfix">
+                        <span>Simple Calculate</span>
+                        <!-- <el-button style="float: right; padding: 3px 0" type="text" @click="calculateRisk">Calculate base on form</el-button> -->
+                      </div>
+                      <div id="riskChart">
+                        <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick" class="simple-calculate">
+                          <el-tab-pane label="Age" name="age">What's your age?
+                            <el-row type="flex">
+                              <el-col :span="8">
+                              </el-col>
+                              <el-col :span="8">
+                                <el-input-number v-model="age" :min="1" :max="100" label="age" size="mini"></el-input-number>
+                              </el-col>
+                              <el-col :span="8">
+                              </el-col>
+                            </el-row>
+                            <el-row type="flex">
+                              <el-col :span="8">
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button size="mini" @click="goToGender">Next<i class="el-icon-right"></i></el-button>
+                              </el-col>
+                              <el-col :span="8">
+                              </el-col>
+                            </el-row>
+                          </el-tab-pane>
+                          <el-tab-pane label="Gender" name="gender">What's your gender(biologically)?
+                            <el-row type="flex">
+                              <el-col :span="8" style="text-align: right;">
+                                Male
+                                <i class="el-icon-male"></i>
+                              </el-col>
+                              <el-col :span="8">
+                                <el-switch
+                                  v-model="genderMale"
+                                  active-color="#13ce66"
+                                  inactive-color="#ff4949">
+                                </el-switch>
+                              </el-col>
+                              <el-col :span="8" style="text-align: left;">
+                                Female
+                                <i class="el-icon-female"></i>
+                              </el-col>
+                            </el-row>
+                            <el-row type="flex">
+                              <el-col :span="8">
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button size="mini" @click="goToSymptoms">Next<i class="el-icon-right"></i></el-button>
+                              </el-col>
+                              <el-col :span="8">
+                              </el-col>
+                            </el-row>
+                          </el-tab-pane>
+                          </el-tab-pane>
+                          <el-tab-pane label="Symptoms" name="symptoms">What symptoms do you have?
+                            <el-row type="flex">
+                              <el-col :span="8">
+
+                              </el-col>
+                              <el-col :span="8">
+                                <el-select
+                                  v-model="symptoms"
+                                  multiple
+                                  placeholder="select the symptoms">
+                                  <!-- allow-create
+                                  filterable -->
+                                  <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                  </el-option>
+                                </el-select>
+                              </el-col>
+                              <el-col :span="8">
+
+                              </el-col>
+                            </el-row>
+                            <el-row type="flex">
+                              <el-col :span="8">
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button size="mini" @click="goToVaccineStatus">Next<i class="el-icon-right"></i></el-button>
+                              </el-col>
+                              <el-col :span="8">
+                              </el-col>
+                            </el-row>
+                          </el-tab-pane>
+                          </el-tab-pane>
+                          <el-tab-pane label="Vaccine Status" name="vaccine status">What is your vaccine status?
+                            <el-row type="flex">
+                              <el-col :span="8">
+
+                              </el-col>
+                              <el-col :span="8">
+                                <el-select
+                                  v-model="vaccineStatus"
+                                  placeholder="select your vaccine status">
+                                  <!-- allow-create
+                                  filterable -->
+                                  <el-option
+                                    v-for="item in vaccineOptions"
+                                    :key="item"
+                                    :label="item"
+                                    :value="item">
+                                  </el-option>
+                                </el-select>
+                              </el-col>
+                              <el-col :span="8">
+
+                              </el-col>
+                            </el-row>
+                            <el-row type="flex">
+                              <el-col :span="8">
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button size="mini" @click="goToFeeling">Next<i class="el-icon-right"></i></el-button>
+                              </el-col>
+                              <el-col :span="8">
+                              </el-col>
+                            </el-row>
+                          </el-tab-pane>
+                          <el-tab-pane label="Feeling" name="feeling">How do you feel today?
+                            <el-row type="flex">
+                              <el-col :span="8">
+
+                              </el-col>
+                              <el-col :span="8">
+                                <el-rate
+                                  v-model="feeling">
+                                </el-rate>
+                              </el-col>
+                              <el-col :span="8">
+
+                              </el-col>
+                            </el-row>
+                            <el-row type="flex">
+                              <el-col :span="8">
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button size="mini" @click="goToRiskCalculator">Calculate<i class="el-icon-right"></i></el-button>
+                              </el-col>
+                              <el-col :span="8">
+                              </el-col>
+                            </el-row>
+                          </el-tab-pane>
+                        </el-tabs>
+                      </div>
+                    </el-card>
+                  </el-col>
+                  <!-- <el-col>
+                    <el-row>
+                      <span>placeholder</span>
+                    </el-row>
+                  </el-col> -->
+                </el-row>
+                <!-- <el-row type="flex">
                   <el-col>
                     <span>placeholder</span>
                   </el-col>
-                </el-row>
+                </el-row> -->
               </el-card>
             </el-col>
           </el-row>
@@ -94,5 +253,6 @@
   </body>
   <script src="https://unpkg.com/vue@2.6.14/dist/vue.js" type="text/javascript" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.7/index.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0/echarts.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="index.js" type="text/javascript" charset="utf-8"></script>
 </html>
