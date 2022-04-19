@@ -69,7 +69,8 @@ var app = new Vue({
           // this.symptoms = []
           // this.vaccineStatus = ""
           // this.feeling = null
-          // window.location.replace = "https://kod-va.unstc.site:54321/data/User/admin/home/self-introduction/OOFinalFront/"
+          // window.location.replace = "https://kod-va.unstc.site:54321/data/User/admin/home/self-introduction/OOFinalFront/" + 
+          // "?timestamp=" +newDate().getTime()
           // window.location.href = "https://kod-va.unstc.site:54321/data/User/admin/home/self-introduction/OOFinalFront/"
           window.location.reload()
         },
